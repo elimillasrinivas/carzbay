@@ -10,6 +10,7 @@ import Workshop from './workshop'
 import workshap1 from '../../assets/Images/car-work-2.jpg'
 import Carservice from './carservice'
 import Header from '../../pages/Header/header'
+import Footer from '../../pages/Footer/footer'
 
 const Home =(()=>{
     return(
