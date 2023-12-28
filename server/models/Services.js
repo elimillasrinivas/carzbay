@@ -8,12 +8,12 @@ const generalType = {
 const paintingType = {
   alloy: String,
   fullBody: String,
-  perpanel: String,
+  prepanel: String,
 };
 
 const batteryType = {
-  batteryOrTyre: String,
-  accessories: String,
+  batteryReplacement: String,
+  jumpStart: String,
 };
 
 const checkupType = {
@@ -21,16 +21,39 @@ const checkupType = {
   otherServices: String,
 };
 
-const acType = {
+const doorStepType = {
+  fullPeriodic: String,
+  doorService: String,
+  batteryReplacement: String,
+};
+
+const tyreType = {
   acService: String,
   electricalRepair: String,
 };
+
+const ppfType = {
+  paint: String,
+  ceramic: String,
+};
+
+const acType = {
+  wheel: String,
+  alignment: String,
+  tyreReplacement: String,
+};
+
+
+
 const types= {
     general: generalType,
     painting: paintingType,
     battery: batteryType,
     checkup: checkupType,
-    ac: acType,
+    ac: acType, 
+    tyre: tyreType,
+    doorStep: doorStepType,
+    ppf: ppfType,
   }
 
 const carServicesSchema = new mongoose.Schema({
@@ -38,7 +61,7 @@ const carServicesSchema = new mongoose.Schema({
   carModel: { type: String, unique: true },
   petrol: types,
   diesel: types,
-  gas: types,
+  ev: types,
 });
 
 module.exports = mongoose.model('CarServices', carServicesSchema);
