@@ -23,7 +23,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const loginResponse = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://server-carzbay.onrender.com/api/auth/login",
         {
           userEmailOrMobile,
           password,

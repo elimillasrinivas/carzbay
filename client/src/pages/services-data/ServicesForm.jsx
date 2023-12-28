@@ -268,13 +268,9 @@ const ServicesForm = () => {
     console.log(formData);
     try {
       // Make a POST request to your backend API
-      const response = await axios.post(
-        "http://localhost:5000/api/services/create",
-        formData
-      );
-      console.log(response.data);
-      alert("Success");
-      
+      const response = await axios.post("http://localhost:5000/api/services/create", formData);
+      console.log(response.data); 
+      alert("Success")
     } catch (error) {
       alert("Error submitting form");
       console.error("Error submitting form:", error);
