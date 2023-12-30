@@ -78,7 +78,7 @@ const Profile = ({ userData }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        "http://localhost:3000/api/admin/update",
+        "https://server-carzbay.onrender.com/api/admin/update",
         {
           headers: {
             Authorization: token,
