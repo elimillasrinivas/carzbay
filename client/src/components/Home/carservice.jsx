@@ -1,5 +1,5 @@
 import './carservice.css'
-import maruthisuziki from '../../assets/carimages/suziki.jpeg'
+import maruthisuziki from '../../assets/carimages/SUZUKI.jpeg'
 import hyundai from '../../assets/carimages/HYUNDAI.jpeg'
 import tata from '../../assets/carimages/TATA.jpeg'
 import bmw from '../../assets/carimages/BMW.jpeg'
@@ -10,7 +10,7 @@ const Carservice = (()=>{
     return(
         <>
            <div className="car-service-section">
-                <p>We proudly represent an assortment of top-tier car brands in our service.</p>
+                        <p>We proudly represent an assortment of top-tier car brands in our service.</p>
                 <div className='cartypes'>
                     <img src={bmw} alt='maruthi-suziki'/>
                     <img src={hyundai} alt='hyundai'/>

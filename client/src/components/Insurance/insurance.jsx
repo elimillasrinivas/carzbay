@@ -23,22 +23,52 @@ import claim6 from '../../assets/Images/claim-6.png'
 import claim7 from '../../assets/Images/claim-7.png'
 import insuranceclaim from '../../assets/Images/claim-insurance-main-img.png'
 import Headersub from '../../pages/Header/header2';
+import Footer from '../../pages/Footer/footer'
+import { Typography } from '@mui/material';
+import axios from 'axios';
 
 const Insurance=(()=>{
    const navigate = useNavigate()
-   const [open, setOpen] = React.useState(false);
+   const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [insuranceCompany, setInsuranceCompany] = useState('');
+  const [city, setCity] = useState('');
+  const [error, setError] = useState('');
 
    const handleClickOpen = () => {
       setOpen(true);
    };
 
-   const handleClose = () => {
+   const handleClose = async () => {
+    if (!name || !email || !mobileNumber || !insuranceCompany || !city) {
+      setError('All fields are required');
+      return;
+    }
+
+    setError('');
+
+    const formData = {
+      userName: name,
+      email: email,
+      mobileNumber: mobileNumber,
+      insuranceCompany: insuranceCompany,
+      city: city,
+    };
+    await axios.post('http://localhost:3000/api/insurance', formData)
+      .then(response => {
+         alert("Insurance claim form submitted")
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error submitting form:', error);
+      });
+
       setOpen(false);
    };
-   const [selectedValue, setSelectedValue] = useState('');
-   console.log(selectedValue)
    const handleChange = (event) => {
-      setSelectedValue(event.target.value);
+      setInsuranceCompany(event.target.value);
    };
     return(
         <>
@@ -205,6 +235,9 @@ const Insurance=(()=>{
                         type="text"
                         fullWidth
                         variant="standard"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                      />
                      <TextField
                         autoFocus
@@ -214,6 +247,9 @@ const Insurance=(()=>{
                         type="email"
                         fullWidth
                         variant="standard"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                      />
                      <TextField
                         autoFocus
@@ -223,14 +259,19 @@ const Insurance=(()=>{
                         type="email"
                         fullWidth
                         variant="standard"
+                        required
+                        value={mobileNumber}
+                        onChange={(e) => setMobileNumber(e.target.value)}
                      />
                      <TextField
                         select
-                        value={selectedValue}
+                        value={insuranceCompany}
                         onChange={handleChange}
                         variant="standard"
                         label="Insurance Company"
                         fullWidth
+                        required
+                        
                         >
                         <MenuItem value="">None</MenuItem>
                         <MenuItem value="Reliance">Reliance</MenuItem>
@@ -263,8 +304,12 @@ const Insurance=(()=>{
                         type="email"
                         fullWidth
                         variant="standard"
+                        required
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
                      />
                   </DialogContent>
+                  {error && <Typography style={{ color: 'red', textAlign: 'center' }}>{error}</Typography>}
                   <DialogActions className='formbuttons'>
                      <Button onClick={handleClose}>close</Button>
                      <Button onClick={handleClose}>Submit</Button>

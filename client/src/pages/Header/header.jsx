@@ -25,17 +25,14 @@ const Header=(()=>{
                         <img src={logo1} alt='logo1'/>
                    </div>
                    <div className='nav-section'>
-                        <div className='nav-sub-section'>
-                          
+                        <div className='nav-sub-section'>                         
                           <p>Tract&pay</p>
                         </div>
-                        <div className='nav-sub-section' onClick={()=>{navigate('/blogs')}}>
-                        
+                        <div className='nav-sub-section' onClick={()=>{navigate('/blogs')}}>                        
                           <p>Blogs</p>
                         </div>
-                        <div className='nav-sub-section'>
-                         
-                          <p>Services</p>
+                        <div className='nav-sub-section' onClick={()=>{navigate('/services')}}>                        
+                          <p >Services</p>
                         </div>
                         {/* <div className='nav-sub-section'>
                          
@@ -64,7 +61,7 @@ const Header=(()=>{
               <div onClick={()=>{navigate('/blogs')}}>
                <p onClick={handleMenuItemClick}>Blogs</p>        
               </div>
-              <div>
+              <div onClick={()=>{navigate('/services')}}>
                 <p onClick={handleMenuItemClick}>Services</p>           
               </div>
               <div onClick={()=>{navigate('/insurance')}}>

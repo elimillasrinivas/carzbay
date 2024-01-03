@@ -34,7 +34,7 @@ const Headersub=(()=>{
                         
                           <p>Blogs</p>
                         </div>
-                        <div className='nav-sub-section-2'>
+                        <div className='nav-sub-section-2' onClick={()=>{navigate('/services')}}>
                          
                           <p>Services</p>
                         </div>
@@ -68,7 +68,7 @@ const Headersub=(()=>{
               <div onClick={()=>{navigate('/blogs')}}>
                <p onClick={handleMenuItemClick}>Blogs</p>        
               </div>
-              <div>
+              <div onClick={()=>{navigate('/services')}}>
                 <p onClick={handleMenuItemClick}>Services</p>           
               </div>
               <div onClick={()=>{navigate('/insurance')}}>

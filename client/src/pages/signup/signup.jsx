@@ -1,39 +1,53 @@
 import { useState } from 'react';
 import './signup.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Signup = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [mobileNumber, setmobileNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [userName, setUserName] = useState('');
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
+    const handleUserNameChange = (e) => {
+        setUserName(e.target.value);
+    };
 
-    const handlePhoneNumberChange = (e) => {
-        setPhoneNumber(e.target.value);
+    const handlemobileNumberChange = (e) => {
+        setmobileNumber(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
     };
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         
         const emailRegex = /^\S+@\S+\.\S+$/;
         const isEmailValid = emailRegex.test(email);
 
        
-        const isPhoneNumberValid = /^\d{10}$/.test(phoneNumber);
+        const ismobileNumberValid = /^\d{10}$/.test(mobileNumber);
 
      
         const isPasswordValid = /^(?=.*[!@#$%^&*])(?=.*[A-Z]).{6,}$/.test(password);
 
-        if (isEmailValid && isPhoneNumberValid && isPasswordValid) {
+        if (isEmailValid && ismobileNumberValid && isPasswordValid) {
+
+            try {
+                await axios.post("https://server-carzbay.onrender.com/api/auth/signup",{
+                email, mobileNumber, userName, password
+                })
+            } catch (error) {
+                console.log(error);
+            }
           
             alert('Signup successful!');
+            navigate("/")
         } else {
             
             alert('Please fill all the details correctly.');
@@ -53,6 +67,15 @@ const Signup = () => {
                         onChange={handleEmailChange}
                     />
                 </div>
+                <div className='phoneemail'>
+                    <label>User Name</label>
+                    <input
+                        placeholder='Enter Name'
+                        className='phonenumberinput'
+                        value={userName}
+                        onChange={handleUserNameChange}
+                    />
+                </div>
                 <div className='phone-section'>
                     <label>Phone number</label>
                     <div className='input-container'>
@@ -60,8 +83,8 @@ const Signup = () => {
                         <input
                             placeholder='Phone number'
                             className='phonenumber'
-                            value={phoneNumber}
-                            onChange={handlePhoneNumberChange}
+                            value={mobileNumber}
+                            onChange={handlemobileNumberChange}
                         />
                     </div>
                 </div>

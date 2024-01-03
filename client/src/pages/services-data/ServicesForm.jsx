@@ -2,7 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./services.css";
 import styled from "styled-components";
-import modelsData from './modelsData.json'
+import modelsData from "./modelsData.json";
+
+import {
+  TextField,
+  MenuItem,
+  Button,
+  Select,
+  FormControl,
+  InputLabel,
+  Grid,
+  Typography,
+} from '@mui/material';
 
 const ServicesForm = () => {
   const [formData, setFormData] = useState({
@@ -145,7 +156,7 @@ const ServicesForm = () => {
     }));
   };
 
-  const reset = ( )=>{
+  const reset = () => {
     setFormData({
       carCompany: "",
       carModel: "",
@@ -260,17 +271,26 @@ const ServicesForm = () => {
           ceramic: "",
         },
       },
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     try {
       // Make a POST request to your backend API
+<<<<<<< HEAD
       const response = await axios.post("https://server-carzbay.onrender.com/api/services/create", formData);
       console.log(response.data); 
       alert("Success")
+=======
+      const response = await axios.post(
+        "https://server-carzbay.onrender.com/api/services/create",
+        formData
+      );
+      console.log(response.data);
+      alert("Success");
+>>>>>>> dc068db (init4)
     } catch (error) {
       alert("Error submitting form");
       console.error("Error submitting form:", error);
@@ -308,115 +328,54 @@ const ServicesForm = () => {
     "VOLVO",
   ];
 
-  // Styles
-  const StyledLabel = styled.label`
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #333;
-    width:100%
-  `;
-
-  const StyledSelect = styled.select`
-    width: 30%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-left: 10px;
-
-    &:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-  `;
-
-  // Container for each category (General, Painting, etc.)
-const CategoryContainer = styled.div`
-margin-bottom: 20px;
-
-h4 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-
-  input {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-  }
-}
-`;
-
-// Form container
-const FormContainer = styled.div`
-h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
-}
-
-${CategoryContainer}:not(:last-child) {
-  margin-bottom: 40px;
-}
-`;
-
-// Main container for the entire form
-const MainContainer = styled.div`
-display: flex;
-gap: 2rem;
-margin-top: 2rem;
-`;
-
-
   console.log(Object.keys(modelsData));
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{display:"flex", gap:"3rem", width:"100%", flexWrap:"wrap"}}>
-      <StyledLabel>
-        Car Company :
-        <StyledSelect
-          required
-          name="carCompany"
-          value={formData.carCompany}
-          onChange={handleInputChange}
-        >
-          <option value="" disabled>
-            Select Car Company
-          </option>
-          {carCompanies.map((company, index) => (
-            <option key={index} value={company}>
-              {company}
-            </option>
-          ))}
-        </StyledSelect>
-      </StyledLabel>
+     <Grid container spacing={3}>
+      <Grid item xs={12} md={6}>
+        <FormControl fullWidth required>
+          <InputLabel htmlFor="carCompany">Car Company</InputLabel>
+          <Select
+            name="carCompany"
+            value={formData.carCompany}
+            onChange={handleInputChange}
+            label="Car Company"
+          >
+            <MenuItem value="" disabled>
+              Select Car Company
+            </MenuItem>
+            {carCompanies.map((company, index) => (
+              <MenuItem key={index} value={company}>
+                {company}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
 
       {formData.carCompany && (
-        <StyledLabel>
-          Car Model:
-          <StyledSelect
-            required
-            name="carModel"
-            value={formData.carModel}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Select Car Model
-            </option>
-            {modelsData[formData.carCompany].map((model) => (
-              <option key={model} value={model}>
-                {model}
-              </option>
-            ))}
-          </StyledSelect>
-        </StyledLabel>)}
-      </div>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
+            <InputLabel htmlFor="carModel">Car Model</InputLabel>
+            <Select
+              name="carModel"
+              value={formData.carModel}
+              onChange={handleInputChange}
+              label="Car Model"
+            >
+              <MenuItem value="" disabled>
+                Select Car Model
+              </MenuItem>
+              {modelsData[formData.carCompany].map((model) => (
+                <MenuItem key={model} value={model}>
+                  {model}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+      )}
+    </Grid>
       <div style={{ display: "flex", gap: "2rem", marginTop: "2rem" }}>
         <div className="form-container">
           <h2>Petrol</h2>
@@ -640,7 +599,6 @@ margin-top: 2rem;
                 onChange={handleNestedInputChange}
               />
             </label>
-            
           </div>
         </div>
 
@@ -866,7 +824,6 @@ margin-top: 2rem;
                 onChange={handleNestedInputChange}
               />
             </label>
-            
           </div>
         </div>
 
@@ -1092,29 +1049,38 @@ margin-top: 2rem;
                 onChange={handleNestedInputChange}
               />
             </label>
-            
           </div>
         </div>
       </div>
-<p style={{color:"red"}}>Please enter only prices and check again while submitting****</p>
+      <Typography variant="body2" color="error">
+        Please enter only prices and check again while submitting
+      </Typography>
 
-<div style={{display:"flex", gap:"5rem"}}>
-      <button
-        type="submit"
-        style={{ width: "20%", height: "5vh", marginTop: "2rem" }}
-      >
-        Submit
-      </button>
+      <Grid container spacing={3} justifyContent="center">
+        <Grid item>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            Submit
+          </Button>
+        </Grid>
 
-      <button
-        type="button"
-        style={{ width: "20%", height: "5vh", marginTop: "2rem" }}
-        onClick={reset}
-      >
-        Reset
-      </button>
-
-</div>
+        <Grid item>
+          <Button
+            type="button"
+            variant="outlined"
+            fullWidth
+            onClick={() => reset()}
+            sx={{ mt: 2 }}
+          >
+            Reset
+          </Button>
+        </Grid>
+      </Grid>
+      
     </form>
   );
 };

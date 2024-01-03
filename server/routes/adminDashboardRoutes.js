@@ -8,6 +8,6 @@ const adminDashboardController = require("../controllers/adminDashboardControlle
 router.get('/all/histories', authMiddleware.authenticateAdmin, adminDashboardController.getAllUserHistories);
 
 // Update User History Status (Admin Protected)
-router.put('/:id', authMiddleware.authenticateAdmin, adminDashboardController.updateUserHistoryStatus);
+router.put('/history/:id', authMiddleware.authenticateAdmin, adminDashboardController.updateUserHistoryStatus);
 
 module.exports = router;

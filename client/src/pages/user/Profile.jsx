@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import axios from "axios";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const ProfileContainer = styled.div`
   background-color: #fff;
@@ -14,6 +15,7 @@ const ProfileHeader = styled.h2`
 
 const ProfileField = styled.p`
   margin-bottom: 10px;
+  margin-top: 30px;
 `;
 
 const EditProfileButton = styled.button`
@@ -58,70 +60,93 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
-const Profile = ({ userData, fetchUserProfile }) => {
+const Profile = ({ userData }) => {
   const [editing, setEditing] = useState(false);
-  const [updatedName, setUpdatedName] = useState(userData.name);
+  const [updatedName, setUpdatedName] = useState(userData.userName);
   const [updatedEmail, setUpdatedEmail] = useState(userData.email);
+  const [updatedMobile, setUpdatedMobile] = useState(userData.mobileNumber);
+
+  const enterEditMode = () => {
+    setUpdatedName(userData.userName);
+    setUpdatedEmail(userData.email);
+    setUpdatedMobile(userData.mobileNumber);
+
+    setEditing(true);
+  };
 
   const handleUpdateProfile = async () => {
     try {
-      // Replace this with your actual API call to update the profile
-      const response = await fetch('/api/user/update-profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: updatedName,
-          email: updatedEmail,
-        }),
+      const token = localStorage.getItem("token");
+      const response = await axios.put('http://localhost:3000/api/user/update',{
+        userName:updatedName, email:updatedEmail, mobileNumber:updatedMobile
+      },{
+        headers:{
+          Authorization:token
+        }
       });
-      const data = await response.json();
-
-      // Update the user data in the parent component
-      fetchUserProfile();
+      setUpdatedEmail(response.data.email);
+      setUpdatedName(response.data.userName);
+      setUpdatedMobile(response.data.mobileNumber);
+      alert("Updated Profile");
       setEditing(false);
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error upading user profile:", error);
     }
   };
 
   return (
     <ProfileContainer>
-      <ProfileHeader>Profile</ProfileHeader>
       {!editing ? (
         <div>
+          <ProfileHeader>Profile</ProfileHeader>
+
           <ProfileField>
-            <strong>Name:</strong> {userData.name}
+            <strong>Name:</strong> {updatedName}
           </ProfileField>
           <ProfileField>
-            <strong>Email:</strong> {userData.email}
+            <strong>Email:</strong> {updatedEmail}
           </ProfileField>
-          <EditProfileButton onClick={() => setEditing(true)}>
+          <ProfileField>
+            <strong>Mobile:</strong> {updatedMobile}
+          </ProfileField>
+          <EditProfileButton onClick={enterEditMode}>
             Update Profile
           </EditProfileButton>
         </div>
       ) : (
-        <EditProfileForm>
-          <InputLabel>
-            Name:
-            <InputField
-              type="text"
-              value={updatedName}
-              onChange={(e) => setUpdatedName(e.target.value)}
-            />
-          </InputLabel>
-          <InputLabel>
-            Email:
-            <InputField
-              type="text"
-              value={updatedEmail}
-              onChange={(e) => setUpdatedEmail(e.target.value)}
-            />
-          </InputLabel>
-          <SaveButton onClick={handleUpdateProfile}>Save</SaveButton>
-          <CancelButton onClick={() => setEditing(false)}>Cancel</CancelButton>
-        </EditProfileForm>
+        <div>
+          <ProfileHeader>Update Profile</ProfileHeader>
+          <EditProfileForm>
+            <InputLabel>
+              Name:
+              <InputField
+                type="text"
+                value={updatedName}
+                onChange={(e) => setUpdatedName(e.target.value)}
+              />
+            </InputLabel>
+            <InputLabel>
+              Email:
+              <InputField
+                type="text"
+                value={updatedEmail}
+                onChange={(e) => setUpdatedEmail(e.target.value)}
+              />
+            </InputLabel>
+            <InputLabel>
+              MObile:
+              <InputField
+                type="text"
+                value={updatedMobile}
+                onChange={(e) => setUpdatedMobile(e.target.value)}
+              />
+            </InputLabel>
+            <SaveButton onClick={handleUpdateProfile}>Save</SaveButton>
+            <CancelButton onClick={() => setEditing(false)}>
+              Cancel
+            </CancelButton>
+          </EditProfileForm>
+        </div>
       )}
     </ProfileContainer>
   );

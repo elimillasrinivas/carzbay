@@ -25,18 +25,17 @@ exports.updateProfile = async (req, res) => {
   try {
     const userId = req.user.userId; // Extract userId from the authenticated user's information
     const { userName, email, mobileNumber } = req.body;
-
     // Fetch the user from the database
-    const user = await User.findById(userId);22                                   
+    const user = await User.findById(userId);                                 
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
     // Update user data
-    user.userName = userName || user.userName; // Update userName if provided, otherwise keep the existing value
-    user.email = email || user.email; // Update email if provided, otherwise keep the existing value
-    user.mobileNumber = mobileNumber || user.mobileNumber; // Update email if provided, otherwise keep the existing value
+    user.userName = userName || user.userName; 
+    user.email = email || user.email; 
+    user.mobileNumber = mobileNumber || user.mobileNumber;
 
     // Save the updated user data
     await user.save();

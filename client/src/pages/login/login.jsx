@@ -23,15 +23,13 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const loginResponse = await axios.post(
-        "https://server-carzbay.onrender.com/api/auth/login",
+        "http://localhost:3000/api/auth/login",
         {
           userEmailOrMobile,
           password,
         }
       );
-      console.log(loginResponse.data.user.role);
       localStorage.setItem("token", loginResponse.data.token);
-
       if(loginResponse.data.user.role == 'admin'){
         navigate("/admin/dashboard");
       }
@@ -39,7 +37,9 @@ const Login = () => {
           navigate("/user/dashboard");
       }
 
-    } catch (error) {}
+    } catch (error) {
+      alert(error.response.data.message)
+    }
 
     setuserEmailOrMobile("");
     setPassword("");

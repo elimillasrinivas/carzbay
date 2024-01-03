@@ -11,7 +11,7 @@ exports.authenticateUser = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, keys.jwtSecret);
-    req.user = decoded;
+    req.user = decoded; 
     next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
@@ -22,9 +22,8 @@ exports.authenticateUser = (req, res, next) => {
   }
 };
 
-exports.authenticateAdmin = (req, res, next) => {
-  const token = req.header('Authorization');
-
+exports.authenticateAdmin = (req, res, next) => { 
+  const token = req.header('Authorization'); 
   if (!token) {
     return res.status(401).json({ message: 'Access denied, token missing' });
   }
@@ -48,7 +47,6 @@ exports.authenticateAdmin = (req, res, next) => {
 
 // Authorization Middleware
 exports.authorizeUser = (req, res, next) => {
-  console.log(req.user);
   const { role } = req.user;
 
   if (role !== 'user') {

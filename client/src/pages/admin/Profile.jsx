@@ -77,6 +77,7 @@ const Profile = ({ userData }) => {
   const handleUpdateProfile = async () => {
     try {
       const token = localStorage.getItem("token");
+<<<<<<< HEAD
       const response = await axios.put(
         "https://server-carzbay.onrender.com/api/admin/update",
         {
@@ -86,6 +87,15 @@ const Profile = ({ userData }) => {
         }
       );
       console.log(response);
+=======
+      const response = await axios.put('http://localhost:3000/api/admin/update',{
+        userName:updatedName, email:updatedEmail, mobileNumber:updatedMobile
+      },{
+        headers:{
+          Authorization:token
+        }
+      });
+>>>>>>> dc068db (init4)
       setUpdatedEmail(response.data.email);
       setUpdatedName(response.data.userName);
       setUpdatedMobile(response.data.mobileNumber);
@@ -103,6 +113,7 @@ const Profile = ({ userData }) => {
           <ProfileHeader>Profile</ProfileHeader>
 
           <ProfileField>
+<<<<<<< HEAD
             <strong>Name:</strong> {userData.userName}
           </ProfileField>
           <ProfileField>
@@ -110,6 +121,15 @@ const Profile = ({ userData }) => {
           </ProfileField>
           <ProfileField>
             <strong>Mobile:</strong> {userData.mobileNumber}
+=======
+            <strong>Name:</strong> {updatedName}
+          </ProfileField>
+          <ProfileField>
+            <strong>Email:</strong> {updatedEmail}
+          </ProfileField>
+          <ProfileField>
+            <strong>Mobile:</strong> {updatedMobile}
+>>>>>>> dc068db (init4)
           </ProfileField>
           <EditProfileButton onClick={enterEditMode}>
             Update Profile

@@ -5,6 +5,8 @@ import Blogdata from './blogsdata';
 import ArrowBackIosNewTwoToneIcon from '@mui/icons-material/ArrowBackIosNewTwoTone';
 import ArrowForwardIosTwoToneIcon from '@mui/icons-material/ArrowForwardIosTwoTone';
 import Headersub from '../../pages/Header/header2';
+import Footer from '../../pages/Footer/footer'
+
 
 const Blogs = () => {
   const blogsPerPage = 6; // Number of blogs to display per page

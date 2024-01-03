@@ -13,4 +13,4 @@ router.get('/profile', authMiddleware.authenticateAdmin, authMiddleware.authoriz
 router.put('/update', authMiddleware.authenticateAdmin, authMiddleware.authorizeAdmin, userController.updateProfile);
 
 
-module.exports = router;
+module.exports = router; 
