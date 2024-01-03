@@ -279,18 +279,9 @@ const ServicesForm = () => {
     console.log(formData);
     try {
       // Make a POST request to your backend API
-<<<<<<< HEAD
       const response = await axios.post("https://server-carzbay.onrender.com/api/services/create", formData);
       console.log(response.data); 
       alert("Success")
-=======
-      const response = await axios.post(
-        "https://server-carzbay.onrender.com/api/services/create",
-        formData
-      );
-      console.log(response.data);
-      alert("Success");
->>>>>>> dc068db (init4)
     } catch (error) {
       alert("Error submitting form");
       console.error("Error submitting form:", error);
