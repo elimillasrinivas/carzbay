@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Profile from './Profile';
@@ -8,7 +7,6 @@ import axios from 'axios';
 
 const Container = styled.div`
   font-family: 'Arial', sans-serif;
-=======
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Profile from "./Profile";
@@ -18,7 +16,6 @@ import axios from "axios";
 
 const Container = styled.div`
   font-family: "Arial", sans-serif;
->>>>>>> dc068db (init4)
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
